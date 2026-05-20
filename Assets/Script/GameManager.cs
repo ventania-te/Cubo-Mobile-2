@@ -28,13 +28,16 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     private float timescore = 0f;
 
+    [Header("Game Over")]
+    [SerializeField] private GameObject gameOverScreen;
+
 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            
         }
         else
         {
@@ -144,6 +147,26 @@ public class GameManager : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void GameOver()
+    {
+        isGameOver = true;
+        gameOverScreen.SetActive(true);
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
 
 }
 

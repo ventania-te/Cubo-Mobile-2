@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     
 
+    
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -53,13 +55,14 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Obstacle"))
         {
+            Destroy(gameObject);
             cam.gameObject.SetActive(false);
             camZoom.gameObject.SetActive(true);
 
-            GameManager.Instance.isGameOver = true;
+            GameManager.Instance.GameOver();
             Instantiate(destructionParticle, transform.position, Quaternion.identity);
             _impulseSource.GenerateImpulse();
-            Destroy(gameObject);
+            
         }
     }
 }
